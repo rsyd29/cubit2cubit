@@ -12,19 +12,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ColorCubit>(
-      create: (context) => ColorCubit(),
-      child: BlocProvider<CounterCubit>(
-        create: (context) => CounterCubit(
-          colorCubit: context.read<ColorCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ColorCubit>(
+          create: (context) => ColorCubit(),
         ),
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
+        BlocProvider<CounterCubit>(
+          create: (context) => CounterCubit(
+            colorCubit: context.read<ColorCubit>(),
           ),
-          home: const MyHomePage(),
         ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const MyHomePage(),
       ),
     );
   }
