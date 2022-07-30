@@ -40,20 +40,22 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: context.watch<ColorCubit>().state.color,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
               child: Text('Change Color'),
-              onPressed: () {},
+              onPressed: () {
+                context.read<ColorCubit>().changeColor();
+              },
             ),
             SizedBox(
               height: 20.0,
             ),
             Text(
-              '0',
+              '${context.watch<CounterCubit>().state.counter}',
               style: TextStyle(
                 fontSize: 52.0,
                 fontWeight: FontWeight.bold,
@@ -68,7 +70,9 @@ class MyHomePage extends StatelessWidget {
                 'Increment Center',
                 style: TextStyle(fontSize: 24.0),
               ),
-              onPressed: () {},
+              onPressed: () {
+                context.read<CounterCubit>().changeCounter();
+              },
             ),
           ],
         ),
